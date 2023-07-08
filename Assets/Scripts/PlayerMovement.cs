@@ -106,11 +106,26 @@ public class PlayerMovement : MonoBehaviour
     public void SetLeftKey(bool held)
     {
         leftKeyDown = held;
+
+        if (held == true && GetComponent<SpriteRenderer>().flipX == false)
+        {
+            //flip ducky sprite
+            GetComponent<Flippable>().Flip();
+            //flip gun sprite.
+            GetComponentInChildren<PlayerGun>().gameObject.GetComponent<Flippable>().Flip();
+        }
     }
 
     public void SetRightKey(bool held)
     {
         rightKeyDown = held;
+        if (held == true && GetComponent<SpriteRenderer>().flipX == true)
+        {
+            //flip ducky sprite
+            GetComponent<Flippable>().FlipBack();
+            //flip gun sprite.
+            GetComponentInChildren<PlayerGun>().gameObject.GetComponent<Flippable>().FlipBack();
+        }
     }
 
     public void SetDownKey(bool held)

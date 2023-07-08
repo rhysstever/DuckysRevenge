@@ -19,7 +19,7 @@ public class PlayerGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("w") || Input.GetKeyDown("up"))
+        if (Input.GetKeyDown("s") || Input.GetKeyDown("down"))
         {
             Shoot();
         }
@@ -27,6 +27,16 @@ public class PlayerGun : MonoBehaviour
 
     public void Shoot()
     {
-        shake.TriggerShake(0.33f, 0.9f);
+        shake.TriggerShake(0.2f, 1.25f);
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down);
+        
+        if (hitInfo.collider)
+        {
+            Debug.Log("Hit " + hitInfo.collider);
+        }
+        else
+        {
+            Debug.Log("Hit nothing!");
+        }
     }
 }

@@ -25,7 +25,7 @@ public class Controller : MonoBehaviour
         //directional input detection. allow various keys to detect this for accessibility's sake.
         playerMovement.SetLeftKey(Input.GetKey("a") || Input.GetKey("left"));
         playerMovement.SetRightKey(Input.GetKey("d") || Input.GetKey("right"));
-        playerMovement.SetDownKey(Input.GetKey("s") || Input.GetKey("down"));
+        //playerMovement.SetDownKey(Input.GetKey("s") || Input.GetKey("down"));
 
         //detect jump input. allow various keys to detect this for accessibility's sake.
         if (Input.GetKeyDown("space") || Input.GetKeyDown("w") || Input.GetKeyDown("up"))
