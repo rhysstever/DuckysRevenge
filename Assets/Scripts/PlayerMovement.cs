@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     bool rightKeyDown; //detects whether the player is holding down D.
     bool downKeyDown; //detects whether the player is holding down S.
 
+    public bool facingRight = true;
     public bool bufferRight;
     public bool bufferLeft;
 
@@ -78,20 +79,22 @@ public class PlayerMovement : MonoBehaviour
         Mathf.Clamp(rb.velocity.x, -10, 10);
         Mathf.Clamp(rb.velocity.y, -50, 50);
 
+        /*
         //if the player is SMASHING the down key, give them some downward force for game-feel purposes.
         if (downKeyDown)
         {
             rb.AddForce(-transform.up * downWardForce);
             Debug.Log("you are holding the down key");
         }
+        */
 
-        if (bufferRight)
+        if (facingRight)
         {
             rb.AddForce(transform.right * horizontalForce);
             Debug.Log("you are holding the right key.");
         }
 
-        if (bufferLeft)
+        if (!facingRight)
         {
             rb.AddForce(-transform.right * horizontalForce);
             Debug.Log("you are holding the left key");
@@ -109,6 +112,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (held == true && GetComponent<SpriteRenderer>().flipX == false)
         {
+            if (facingRight == true)
+            {
+                facingRight = false;
+            }
             //flip ducky sprite
             GetComponent<Flippable>().Flip();
             //flip gun sprite.
@@ -121,6 +128,10 @@ public class PlayerMovement : MonoBehaviour
         rightKeyDown = held;
         if (held == true && GetComponent<SpriteRenderer>().flipX == true)
         {
+            if (facingRight != true)
+            {
+                facingRight = true;
+            }
             //flip ducky sprite
             GetComponent<Flippable>().FlipBack();
             //flip gun sprite.
