@@ -28,20 +28,22 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Find the base game object of what the projectile collided with, excluding managers
         GameObject baseGameObj = collision.gameObject;
         while(baseGameObj.transform.parent != null && baseGameObj.transform.parent.tag != "Manager")
         {
             baseGameObj = baseGameObj.transform.parent.gameObject;
         }
 
+        // Do nothing if the projectile collides with what shot it
+        // OR if the source is not set
+        if(source == null || baseGameObj == source) return;
+
         switch(baseGameObj.tag)
         {
             case "Archer":
-                if(baseGameObj != source)
-                {
-                    Destroy(baseGameObj);
-                    Destroy(gameObject);
-                }
+                Destroy(baseGameObj);
+                Destroy(gameObject);
                 break;
             case "Player":
                 Debug.Log("Ouch!");

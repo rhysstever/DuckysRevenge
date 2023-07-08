@@ -26,14 +26,14 @@ public class Archer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(fireTimer >= fireRate)
+        if(fireTimer >= fireRate && GameManager.instance.player != null)
 		{
-            Vector3 playerBodyPos = GameManager.instance.player.transform.GetChild(0).GetChild(0).position;
+            GameObject playerBody = GameManager.instance.player.transform.GetChild(0).GetChild(0).gameObject;
 
             //if(!HasLineOfSight(playerBodyPos))
             //    return;
 
-            Fire(playerBodyPos);
+            Fire(playerBody);
 
             // Reset timer
             fireTimer = 0.0f;
@@ -62,7 +62,7 @@ public class Archer : MonoBehaviour
 	//	}
 	//}
 
-	private void Fire(Vector3 targetPos)
+	private void Fire(GameObject targetObject)
     {
         Vector3 startingPos = new Vector3(
             transform.position.x,
@@ -74,13 +74,16 @@ public class Archer : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, startingPos, Quaternion.identity, GameManager.instance.projectilesParent.transform);
         projectile.GetComponent<Projectile>().source = gameObject;
 
+        // Get the target position
+        Vector3 targetPos = targetObject.transform.position;
+
         // Rotate the projectile to face the target
         projectile.transform.LookAt(targetPos);
 
         // Shoot the projectile away from the archer and towards the target
         Vector2 direction = new Vector2(
             targetPos.x - projectile.transform.position.x,
-            targetPos.y - projectile.transform.position.y + 5.0f // Added 5 to account for gravity
+            targetPos.y - projectile.transform.position.y + 5.0f    // Add 5 to account for gravity
         );
 
         // Add variation to the shot's direction
@@ -88,6 +91,78 @@ public class Archer : MonoBehaviour
         direction *= projectileSpeed;
 
         projectile.GetComponent<Rigidbody2D>().AddForce(direction);
+    }
+
+    private void Fire2(GameObject targetObject)
+	{
+        Vector3 startingPos = new Vector3(
+            transform.position.x,
+            transform.position.y + 0.25f,
+            0.0f
+        );
+
+        // Create the projectile
+        GameObject projectile = Instantiate(projectilePrefab, startingPos, Quaternion.identity, GameManager.instance.projectilesParent.transform);
+        projectile.GetComponent<Projectile>().source = gameObject;
+
+        // Get the target position
+        Vector3 targetPos = targetObject.transform.position;
+
+        // Rotate the projectile to face the target
+        projectile.transform.LookAt(targetPos);
+
+        // Get angles to fire
+        float? highAngle = 0f;
+        float? lowAngle = 0f;
+        CalculateAngleToHitTarget(projectile, targetObject, projectileSpeed, out highAngle, out lowAngle);
+
+
+    }
+
+    void CalculateAngleToHitTarget(GameObject projectile, GameObject target, float speed, out float? theta1, out float? theta2)
+    {
+        //Initial speed
+        float v = speed;
+
+        Vector3 targetVec = target.transform.position - projectile.transform.position;
+
+        //Vertical distance
+        float y = targetVec.y;
+
+        //Reset y so we can get the horizontal distance x
+        targetVec.y = 0f;
+
+        //Horizontal distance
+        float x = targetVec.magnitude;
+
+        //Gravity
+        float g = 9.81f;
+
+
+        //Calculate the angles
+
+        float vSqr = v * v;
+
+        float underTheRoot = (vSqr * vSqr) - g * (g * x * x + 2 * y * vSqr);
+
+        //Check if we are within range
+        if(underTheRoot >= 0f)
+        {
+            float rightSide = Mathf.Sqrt(underTheRoot);
+
+            float top1 = vSqr + rightSide;
+            float top2 = vSqr - rightSide;
+
+            float bottom = g * x;
+
+            theta1 = Mathf.Atan2(top1, bottom) * Mathf.Rad2Deg;
+            theta2 = Mathf.Atan2(top2, bottom) * Mathf.Rad2Deg;
+        }
+        else
+        {
+            theta1 = null;
+            theta2 = null;
+        }
     }
 
     private Vector2 AddVariance(Vector2 vector2, float varianceAmount)

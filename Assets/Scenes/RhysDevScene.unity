@@ -712,6 +712,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: archer_prefab (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 104598433052676601, guid: 7a7277fa0aa6a4b43895514b8d0e09ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6357686209994883632, guid: 7a7277fa0aa6a4b43895514b8d0e09ba, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -755,6 +759,10 @@ PrefabInstance:
     - target: {fileID: 6357686209994883632, guid: 7a7277fa0aa6a4b43895514b8d0e09ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8898006074663903153, guid: 7a7277fa0aa6a4b43895514b8d0e09ba, type: 3}
+      propertyPath: projectileSpeed
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a7277fa0aa6a4b43895514b8d0e09ba, type: 3}
@@ -817,6 +825,10 @@ PrefabInstance:
     - target: {fileID: 6357686209994883632, guid: 7a7277fa0aa6a4b43895514b8d0e09ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8898006074663903153, guid: 7a7277fa0aa6a4b43895514b8d0e09ba, type: 3}
+      propertyPath: projectileSpeed
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a7277fa0aa6a4b43895514b8d0e09ba, type: 3}
