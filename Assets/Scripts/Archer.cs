@@ -6,7 +6,7 @@ public class Archer : MonoBehaviour
 {
     // Set in inspector
     [SerializeField]
-    private GameObject projectilePrefab, projectilesParent, target;
+    private GameObject projectilePrefab;
 
     [SerializeField]
     private float fireRate, projectileSpeed;
@@ -28,7 +28,12 @@ public class Archer : MonoBehaviour
     {
         if(fireTimer >= fireRate)
 		{
-            Fire(target.transform.position);
+            Vector3 playerBodyPos = GameManager.instance.player.transform.GetChild(0).GetChild(0).position;
+
+            //if(!HasLineOfSight(playerBodyPos))
+            //    return;
+
+            Fire(playerBodyPos);
 
             // Reset timer
             fireTimer = 0.0f;
@@ -40,16 +45,34 @@ public class Archer : MonoBehaviour
 		fireTimer += Time.deltaTime;
 	}
 
-    private void Fire(Vector3 targetPos)
-	{
+	//private bool HasLineOfSight(Vector3 targetPos)
+	//{
+	//	Vector3 direction = targetPos - transform.position;
+	//	RaycastHit hit;
+	//	int layerMask = 5;
+	//	layerMask = ~layerMask;
+	//	if(Physics.Raycast(transform.position, direction, out hit, Mathf.Infinity, layerMask))
+	//	{
+	//		return (hit.transform.gameObject.tag == "Player");
+	//	}
+	//	else
+	//	{
+	//		Debug.Log("Raycast missed");
+	//		return false;
+	//	}
+	//}
+
+	private void Fire(Vector3 targetPos)
+    {
         Vector3 startingPos = new Vector3(
-                transform.position.x,
-                transform.position.y + 0.25f,
-                0.0f
-            );
+            transform.position.x,
+            transform.position.y + 0.25f,
+            0.0f
+        );
 
         // Create the projectile
-        GameObject projectile = Instantiate(projectilePrefab, startingPos, Quaternion.identity, projectilesParent.transform);
+        GameObject projectile = Instantiate(projectilePrefab, startingPos, Quaternion.identity, GameManager.instance.projectilesParent.transform);
+        projectile.GetComponent<Projectile>().source = gameObject;
 
         // Rotate the projectile to face the target
         projectile.transform.LookAt(targetPos);
@@ -57,7 +80,7 @@ public class Archer : MonoBehaviour
         // Shoot the projectile away from the archer and towards the target
         Vector2 direction = new Vector2(
             targetPos.x - projectile.transform.position.x,
-            targetPos.y - projectile.transform.position.y + 5.0f    // Add 5 to account for gravity
+            targetPos.y - projectile.transform.position.y + 5.0f // Added 5 to account for gravity
         );
 
         // Add variation to the shot's direction

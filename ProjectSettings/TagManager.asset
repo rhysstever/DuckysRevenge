@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Archer
   - Projectile
+  - Manager
+  - Map
   layers:
   - Default
   - TransparentFX

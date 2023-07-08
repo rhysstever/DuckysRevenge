@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    // Set on creation
+    public GameObject source;
+
+    // Set at Start
     private float bounds;
 
     // Start is called before the first frame update
@@ -24,15 +28,34 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        GameObject baseGameObj = collision.gameObject;
+        while(baseGameObj.transform.parent != null && baseGameObj.transform.parent.tag != "Manager")
         {
-            Debug.Log("Hit the player!");
-            Destroy(gameObject);
+            baseGameObj = baseGameObj.transform.parent.gameObject;
         }
-        else if(collision.gameObject.tag == "Projectile")
+
+        switch(baseGameObj.tag)
         {
-            Debug.Log("Hit another projectile!");
-            Destroy(gameObject);
+            case "Archer":
+                if(baseGameObj != source)
+                {
+                    Destroy(baseGameObj);
+                    Destroy(gameObject);
+                }
+                break;
+            case "Player":
+                Debug.Log("Ouch!");
+                Destroy(baseGameObj);
+                Destroy(gameObject);
+                break;
+            case "Projectile":
+                Debug.Log("Hit another projectile!");
+                Destroy(gameObject);
+                break;
+            default:
+                Debug.Log("Hit " + baseGameObj.tag);
+                Destroy(gameObject);
+                break;
         }
     }
 
