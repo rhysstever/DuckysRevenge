@@ -51,11 +51,9 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
                 break;
             case "Projectile":
-                Debug.Log("Hit another projectile!");
                 Destroy(gameObject);
                 break;
             default:
-                Debug.Log("Hit " + baseGameObj.tag);
                 Destroy(gameObject);
                 break;
         }
@@ -65,7 +63,6 @@ public class Projectile : MonoBehaviour
     {
         if(collision.gameObject.tag == "Projectile")
         {
-            Debug.Log("Hit by another projectile!");
             Destroy(gameObject);
         }
     }
