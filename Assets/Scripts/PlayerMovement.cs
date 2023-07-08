@@ -143,4 +143,14 @@ public class PlayerMovement : MonoBehaviour
     {
         downKeyDown = held;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Goal")
+		{
+            Debug.Log("Level Completed");
+            // Advance to next Scene
+		}
+    }
+
 }
