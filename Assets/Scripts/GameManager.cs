@@ -72,12 +72,12 @@ public class GameManager : MonoBehaviour
 
     public void WingFlapSFX()
     {
-        audio.PlayOneShot(wingFlap, 0.25f);
+        audio.PlayOneShot(wingFlap, 0.5f);
     }
 
     public void LandingSFX()
     {
-        audio.PlayOneShot(landing, 0.025f);
+        audio.PlayOneShot(landing, 0.25f);
     }
 
     public void PlayerDeathSFX()
