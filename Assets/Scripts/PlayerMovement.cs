@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.y <= -60)
+        if (transform.position.y <= -60 || transform.position.y >= 55)
         {
             Destroy(gameObject);
             GameManager.instance.ArcherDeathSFX();
@@ -179,11 +179,11 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = Vector2.zero;
         if (GetComponent<SpriteRenderer>().flipX == true)
         {
-            rb.AddForce(transform.right * 1500);
+            rb.AddForce(transform.right * 1000);
         }
         else
         {
-            rb.AddForce(-transform.right * 1500);
+            rb.AddForce(-transform.right * 1000);
         }
 
         rb.AddForce(transform.up * 3000);
