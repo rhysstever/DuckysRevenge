@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
                 AdvanceLevel();
             }
         }
+
+        
     }
 
     public void GunshotSFX()
@@ -115,6 +117,7 @@ public class GameManager : MonoBehaviour
 		{
             // There are no more scenes, the player has won the game
             Debug.Log("Game won!");
+            SceneManager.LoadScene(0); //loop back around to the first scene again.
 		} 
         else
 		{
