@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     public void PerformHop()
     {
         Mathf.Clamp(rb.velocity.x, -10, 10);
-        Mathf.Clamp(rb.velocity.y, -50, 50);
+        Mathf.Clamp(rb.velocity.y, -10, 50);
 
         /*
         //if the player is SMASHING the down key, give them some downward force for game-feel purposes.
@@ -151,6 +151,22 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Level Completed");
             // Advance to next Scene
 		}
+    }
+
+    public void Recoil() //runs when player fires gun. pushes you in inverse direction of where you're shooting.
+    {
+        rb.velocity = Vector2.zero;
+        if (GetComponent<SpriteRenderer>().flipX == true)
+        {
+            rb.AddForce(transform.right * 1500);
+        }
+        else
+        {
+            rb.AddForce(-transform.right * 1500);
+        }
+
+        rb.AddForce(transform.up * 3000);
+
     }
 
 }

@@ -7,6 +7,14 @@ public class PlayerGun : MonoBehaviour
     ShakeBehavior shake;
     // Start is called before the first frame update
 
+    bool gunActive = false;
+
+    public PlayerGun gun;
+
+    public GameObject bulletPrefab;
+    public Transform bulletSpawner;
+    public GameObject muzzleFlashPrefab;
+
     private void Awake()
     {
         shake = FindObjectOfType<ShakeBehavior>();
@@ -19,24 +27,52 @@ public class PlayerGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("s") || Input.GetKeyDown("down"))
+        if (gunActive)
         {
-            Shoot();
+            if (Input.GetKeyDown("s") || Input.GetKeyDown("down"))
+            {
+                Shoot();
+            }
         }
+
     }
 
     public void Shoot()
     {
-        shake.TriggerShake(0.2f, 1.25f);
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.down);
-        
-        if (hitInfo.collider)
+        shake.TriggerShake(0.33f, 2f);
+
+        GameObject b = Instantiate(bulletPrefab);
+        b.transform.position = bulletSpawner.transform.position;
+        b.transform.right = bulletSpawner.transform.right;
+        GameObject m = Instantiate(muzzleFlashPrefab);
+        m.transform.position = transform.parent.transform.position;
+        if (GetComponent<SpriteRenderer>().flipX == true)
         {
-            Debug.Log("Hit " + hitInfo.collider);
+            b.GetComponent<PlayerBullet>().speed = -b.GetComponent<PlayerBullet>().speed;
+            m.GetComponent<SpriteRenderer>().flipY = true;
         }
         else
         {
-            Debug.Log("Hit nothing!");
+            b.GetComponent<SpriteRenderer>().flipX = true;
+            
         }
+
+        GetComponentInParent<PlayerMovement>().Recoil();
+
+        
+        
+        
+    }
+
+    public void ActivateGun()
+    {
+        gameObject.SetActive(true);
+        gunActive = true;
+    }
+
+    public void DeactivateGun()
+    {
+        gameObject.SetActive(false);
+        gunActive = false;
     }
 }
