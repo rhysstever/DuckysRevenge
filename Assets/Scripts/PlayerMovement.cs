@@ -123,8 +123,9 @@ public class PlayerMovement : MonoBehaviour
             }
             //flip ducky sprite
             GetComponent<Flippable>().Flip();
-            //flip gun sprite.
-            GetComponentInChildren<PlayerGun>().gameObject.GetComponent<Flippable>().Flip();
+            //flip gun sprite if the player has the gun
+            if(GetComponentInChildren<PlayerGun>() != null)
+                GetComponentInChildren<PlayerGun>().gameObject.GetComponent<Flippable>().Flip();
         }
     }
 
@@ -139,8 +140,9 @@ public class PlayerMovement : MonoBehaviour
             }
             //flip ducky sprite
             GetComponent<Flippable>().FlipBack();
-            //flip gun sprite.
-            GetComponentInChildren<PlayerGun>().gameObject.GetComponent<Flippable>().FlipBack();
+            //flip gun sprite if the player has the gun
+            if(GetComponentInChildren<PlayerGun>() != null)
+                GetComponentInChildren<PlayerGun>().gameObject.GetComponent<Flippable>().FlipBack();
         }
     }
 
@@ -154,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.tag == "Goal")
 		{
             Debug.Log("Level Completed");
-            // Advance to next Scene
+            GameManager.instance.AdvanceLevel();
 		}
 
         if (collision.gameObject.tag == "Map")
