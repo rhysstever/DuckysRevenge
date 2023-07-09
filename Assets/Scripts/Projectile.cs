@@ -42,12 +42,14 @@ public class Projectile : MonoBehaviour
         switch(baseGameObj.tag)
         {
             case "Archer":
-                Destroy(baseGameObj);
-                Destroy(gameObject);
+                //Destroy(baseGameObj);
+                //Destroy(gameObject);
+                baseGameObj.GetComponent<Archer>().Die();
                 break;
             case "Player":
-                Debug.Log("Ouch!");
-                Destroy(baseGameObj);
+                //Debug.Log("Ouch!");
+                //Destroy(baseGameObj);
+                baseGameObj.GetComponentInChildren<PlayerMovement>().Die();
                 Destroy(gameObject);
                 break;
             case "Projectile":
@@ -65,5 +67,10 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void OnTriggerEnter2D()
+    {
+        Debug.Log("I hit an archer");
     }
 }

@@ -31,8 +31,6 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown("space") || Input.GetKeyDown("w") || Input.GetKeyDown("up"))
         {
             playerMovement.PerformHop(); //tell the player sprite to do its jump.
-        }
-
-        
+        } 
     }
 }

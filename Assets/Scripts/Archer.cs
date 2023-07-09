@@ -14,6 +14,8 @@ public class Archer : MonoBehaviour
     // Set at Start
     private float fireTimer, shotVariationAmount;
 
+    bool isDead = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,18 +28,22 @@ public class Archer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(fireTimer >= fireRate && GameManager.instance.player != null)
-		{
-            GameObject playerBody = GameManager.instance.player.transform.GetChild(0).GetChild(0).gameObject;
+        if (!isDead)
+        {
+            if (fireTimer >= fireRate && GameManager.instance.player != null)
+            {
+                GameObject playerBody = GameManager.instance.player.transform.GetChild(0).GetChild(0).gameObject;
 
-            //if(!HasLineOfSight(playerBodyPos))
-            //    return;
+                //if(!HasLineOfSight(playerBodyPos))
+                //    return;
 
-            Fire(playerBody);
+                Fire(playerBody);
 
-            // Reset timer
-            fireTimer = 0.0f;
+                // Reset timer
+                fireTimer = 0.0f;
+            }
         }
+        
     }
 
 	private void FixedUpdate()
@@ -102,5 +108,12 @@ public class Archer : MonoBehaviour
         vector2.y += varPosY;
 
         return vector2;
+    }
+
+    public void Die()
+    {
+        isDead = true;
+        gameObject.SetActive(false);
+        //play some kind of fun effect showing your kill!
     }
 }

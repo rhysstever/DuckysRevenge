@@ -15,11 +15,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float downWardForce; //the DOWNWARD force for if the player holds DOWN while falling.
 
+    Vector3 SpawnPosition;
 
     bool leftKeyDown; //detects whether the player is holding down A.
     bool rightKeyDown; //detects whether the player is holding down D.
     bool downKeyDown; //detects whether the player is holding down S.
 
+    public bool isDead = false;
     public bool facingRight = true;
     public bool bufferRight;
     public bool bufferLeft;
@@ -35,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>(); //assign rigidbody reference variable.
+        SpawnPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -167,6 +170,20 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(transform.up * 3000);
 
+    }
+
+    public void Die()
+    {
+        gameObject.SetActive(false);
+        isDead = true;
+
+    }
+
+    public void Respawn()
+    {
+        gameObject.SetActive(true);
+        isDead = false;
+        transform.position = SpawnPosition;
     }
 
 }
