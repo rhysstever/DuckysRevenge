@@ -44,6 +44,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.y <= -60)
+        {
+            Destroy(gameObject);
+            GameManager.instance.ArcherDeathSFX();
+            GameManager.instance.ActivateGameOverUI();
+        }
+
         if (leftKeyDown && bufferLeft == false)
         {
             bufferLeft = true;
@@ -156,9 +163,9 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.tag == "Goal")
 		{
             Debug.Log("Level Completed");
-            GameManager.instance.AdvanceLevel();
+            //GameManager.instance.AdvanceLevel();
             GameManager.instance.WinSFX();
-            collision.gameObject.GetComponent<Goal>().ChangeColor();
+            GameManager.instance.ActivateVictoryUI();
 		}
 
         if (collision.gameObject.tag == "Map")

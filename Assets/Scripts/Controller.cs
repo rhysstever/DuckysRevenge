@@ -19,6 +19,7 @@ public class Controller : MonoBehaviour
     {
         //this script's purpose is to detect input. That's what we're doing!
         DetectInput();
+        
     }
 
     void DetectInput()

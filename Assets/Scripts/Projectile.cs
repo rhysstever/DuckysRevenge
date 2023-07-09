@@ -52,6 +52,7 @@ public class Projectile : MonoBehaviour
                 //Destroy(baseGameObj);
                 baseGameObj.GetComponentInChildren<PlayerMovement>().Die();
                 GameManager.instance.ArcherDeathSFX();
+                GameManager.instance.ActivateGameOverUI();
                 Destroy(gameObject);
                 break;
             case "Projectile":

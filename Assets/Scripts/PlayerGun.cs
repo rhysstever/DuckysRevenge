@@ -64,10 +64,15 @@ public class PlayerGun : MonoBehaviour
         
     }
 
-    public void ActivateGun()
+    public void ActivateGun(bool flipped)
     {
+        if (flipped)
+        {
+            GetComponent<Flippable>().Flip();
+        }
         gameObject.SetActive(true);
         gunActive = true;
+        
     }
 
     public void DeactivateGun()

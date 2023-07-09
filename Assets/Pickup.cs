@@ -11,7 +11,8 @@ public class Pickup : MonoBehaviour
         if (collision.tag == "pickup")
         {
             GameManager.instance.EquipPistolSFX();
-            gun.ActivateGun();
+            GameManager.instance.ActivateHelpUI();
+            gun.ActivateGun(GetComponent<SpriteRenderer>().flipX);
             collision.gameObject.SetActive(false);
         }
     }

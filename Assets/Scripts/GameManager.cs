@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject gameOverUI, victoryUI, helpUI;
 
+    bool victoryAchieved = false;
+
     // Start is called before the first frame update
 
     
@@ -39,7 +41,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (victoryAchieved == true)
+        {
+            if (Input.anyKeyDown)
+            {
+                AdvanceLevel();
+            }
+        }
     }
 
     public void GunshotSFX()
@@ -106,5 +114,23 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(currentIndex + 1);
 		}
 
+    }
+
+    public void ActivateGameOverUI()
+    {
+        gameOverUI.SetActive(true);
+        helpUI.SetActive(false);
+    }
+
+    public void ActivateVictoryUI()
+    {
+        victoryUI.SetActive(true);
+        helpUI.SetActive(false);
+        victoryAchieved = true;
+    }
+
+    public void ActivateHelpUI()
+    {
+        helpUI.SetActive(true);
     }
 }
