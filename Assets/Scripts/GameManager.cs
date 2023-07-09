@@ -21,8 +21,11 @@ public class GameManager : MonoBehaviour
 
     // Set in inspector
     public GameObject archersParent, projectilesParent, player;
-
+    public AudioClip gunShot, bowShot, arrowImpact, archerDeath, wingFlap, landing, playerDeath;
+    public AudioSource audio;
     // Start is called before the first frame update
+
+    
     void Start()
     {
         
@@ -32,5 +35,40 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void GunshotSFX()
+    {
+        audio.PlayOneShot(gunShot);
+    }
+
+    public void BowShotSFX()
+    {
+        audio.PlayOneShot(bowShot, 0.1f);
+    }
+
+    public void ArrowImpactSFX()
+    {
+        audio.PlayOneShot(arrowImpact);
+    }
+
+    public void ArcherDeathSFX()
+    {
+        audio.PlayOneShot(archerDeath);
+    }
+
+    public void WingFlapSFX()
+    {
+        audio.PlayOneShot(wingFlap, 0.1f);
+    }
+
+    public void LandingSFX()
+    {
+        audio.PlayOneShot(landing, 0.025f);
+    }
+
+    public void PlayerDeathSFX()
+    {
+        audio.PlayOneShot(playerDeath);
     }
 }

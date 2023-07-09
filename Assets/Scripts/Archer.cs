@@ -97,6 +97,8 @@ public class Archer : MonoBehaviour
         direction *= projectileSpeed;
 
         projectile.GetComponent<Rigidbody2D>().AddForce(direction);
+
+        GameManager.instance.BowShotSFX();
     }
 
     private Vector2 AddVariance(Vector2 vector2, float varianceAmount)

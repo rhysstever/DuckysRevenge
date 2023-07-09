@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     bool rightKeyDown; //detects whether the player is holding down D.
     bool downKeyDown; //detects whether the player is holding down S.
 
+    public GameObject playerDeathParticles;
     public bool isDead = false;
     public bool facingRight = true;
     public bool bufferRight;
@@ -79,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void PerformHop()
     {
+        GameManager.instance.WingFlapSFX();
         Mathf.Clamp(rb.velocity.x, -10, 10);
         Mathf.Clamp(rb.velocity.y, -10, 50);
 
@@ -154,6 +156,11 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Level Completed");
             // Advance to next Scene
 		}
+
+        if (collision.gameObject.tag == "Map")
+        {
+            GameManager.instance.LandingSFX();
+        }
     }
 
     public void Recoil() //runs when player fires gun. pushes you in inverse direction of where you're shooting.
@@ -175,8 +182,11 @@ public class PlayerMovement : MonoBehaviour
     public void Die()
     {
         gameObject.SetActive(false);
+        GameObject g = Instantiate(playerDeathParticles);
+        g.transform.position = transform.position;
         isDead = true;
-
+        
+        
     }
 
     public void Respawn()
@@ -185,5 +195,6 @@ public class PlayerMovement : MonoBehaviour
         isDead = false;
         transform.position = SpawnPosition;
     }
+
 
 }
