@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     // Set at Start
     private float bounds;
 
+    public GameObject impactParticles;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +51,7 @@ public class Projectile : MonoBehaviour
                 //Debug.Log("Ouch!");
                 //Destroy(baseGameObj);
                 baseGameObj.GetComponentInChildren<PlayerMovement>().Die();
+                GameManager.instance.ArcherDeathSFX();
                 Destroy(gameObject);
                 break;
             case "Projectile":
@@ -57,6 +59,10 @@ public class Projectile : MonoBehaviour
                 break;
             default:
                 Destroy(gameObject);
+                GameManager.instance.ArrowImpactSFX();
+                GameObject p = Instantiate(impactParticles);
+                p.transform.position = collision.contacts[0].point;
+                p.transform.right= collision.contacts[0].normal;
                 break;
         }
     }

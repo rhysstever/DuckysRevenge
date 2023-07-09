@@ -243,5 +243,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f61b41e71635141a5e8d5fb1bc2353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 250
+  speed: 200
   archerDeathParticles: {fileID: 4540709365554625550, guid: 81d6502533e300648977ef75010a1dfc, type: 3}

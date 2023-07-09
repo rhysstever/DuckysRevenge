@@ -157,6 +157,8 @@ public class PlayerMovement : MonoBehaviour
 		{
             Debug.Log("Level Completed");
             GameManager.instance.AdvanceLevel();
+            GameManager.instance.WinSFX();
+            collision.gameObject.GetComponent<Goal>().ChangeColor();
 		}
 
         if (collision.gameObject.tag == "Map")

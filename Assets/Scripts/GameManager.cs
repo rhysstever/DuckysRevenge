@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     // Set in inspector
     public GameObject archersParent, projectilesParent, player;
-    public AudioClip gunShot, bowShot, arrowImpact, archerDeath, wingFlap, landing, playerDeath;
+    public AudioClip gunShot, bowShot, arrowImpact, archerDeath, wingFlap, landing, playerDeath, equipPistol, win;
     public AudioSource audio;
     // Start is called before the first frame update
 
@@ -41,17 +41,17 @@ public class GameManager : MonoBehaviour
 
     public void GunshotSFX()
     {
-        audio.PlayOneShot(gunShot);
+        audio.PlayOneShot(gunShot, 0.25f);
     }
 
     public void BowShotSFX()
     {
-        audio.PlayOneShot(bowShot, 0.1f);
+        audio.PlayOneShot(bowShot, 0.05f);
     }
 
     public void ArrowImpactSFX()
     {
-        audio.PlayOneShot(arrowImpact);
+        audio.PlayOneShot(arrowImpact, 0.2f);
     }
 
     public void ArcherDeathSFX()
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     public void WingFlapSFX()
     {
-        audio.PlayOneShot(wingFlap, 0.1f);
+        audio.PlayOneShot(wingFlap, 0.25f);
     }
 
     public void LandingSFX()
@@ -72,6 +72,17 @@ public class GameManager : MonoBehaviour
     public void PlayerDeathSFX()
     {
         audio.PlayOneShot(playerDeath);
+    } 
+
+    public void EquipPistolSFX()
+    {
+        audio.PlayOneShot(equipPistol);
+    }
+
+    public void WinSFX()
+    {
+        audio.PlayOneShot(win);
+    }
 
     public void AdvanceLevel()
     {

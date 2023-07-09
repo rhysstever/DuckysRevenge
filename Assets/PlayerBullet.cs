@@ -23,14 +23,18 @@ public class PlayerBullet : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Archer")
-        Debug.Log("shot an enemy.");
-        GameObject p = Instantiate(archerDeathParticles);
-        p.transform.position = collision.transform.position;
+        {
+            Debug.Log("shot an enemy.");
+            GameObject p = Instantiate(archerDeathParticles);
+            p.transform.position = collision.transform.position;
+            GameManager.instance.ArcherDeathSFX();
 
-        collision.gameObject.SetActive(false);
-        gameObject.SetActive(false);
-        Destroy(gameObject, 1);
-        Destroy(p, 5);
+            collision.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+            Destroy(gameObject, 1);
+            Destroy(p, 5);
+        }
+       
         
         
     }

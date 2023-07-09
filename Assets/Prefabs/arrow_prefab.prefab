@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
+  impactParticles: {fileID: 3349655917560093625, guid: 16604d5061d4c5a4e88cbb0e0420db60, type: 3}
 --- !u!50 &1353347292301336472
 Rigidbody2D:
   serializedVersion: 4

@@ -10,6 +10,7 @@ public class Pickup : MonoBehaviour
     {
         if (collision.tag == "pickup")
         {
+            GameManager.instance.EquipPistolSFX();
             gun.ActivateGun();
             collision.gameObject.SetActive(false);
         }
