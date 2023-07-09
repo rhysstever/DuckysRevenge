@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
         //string currentScenePath = SceneManager.GetActiveScene().path;
         //int currentIndex = scenes.IndexOf(currentScenePath);
 
-        if(currentIndex >= SceneManager.sceneCountInBuildSettings)
+        if(currentIndex >= SceneManager.sceneCountInBuildSettings -1)
 		{
             // There are no more scenes, the player has won the game
             Debug.Log("Game won!");
