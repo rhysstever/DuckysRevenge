@@ -8,6 +8,7 @@ TagManager:
   - Projectile
   - Manager
   - Map
+  - Goal
   layers:
   - Default
   - TransparentFX
