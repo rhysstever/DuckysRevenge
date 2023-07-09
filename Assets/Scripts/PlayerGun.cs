@@ -39,7 +39,7 @@ public class PlayerGun : MonoBehaviour
 
     public void Shoot()
     {
-        shake.TriggerShake(1f, 5f);
+        shake.TriggerShake(.5f, 5f);
 
         GameObject b = Instantiate(bulletPrefab);
         b.transform.position = bulletSpawner.transform.position;
