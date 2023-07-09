@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     #region Singleton Code
@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     public GameObject archersParent, projectilesParent, player;
     public AudioClip gunShot, bowShot, arrowImpact, archerDeath, wingFlap, landing, playerDeath, equipPistol, win;
     public AudioSource audio;
+
+    public GameObject gameOverUI, victoryUI, helpUI;
+
     // Start is called before the first frame update
 
     
