@@ -41,6 +41,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            if (Input.GetKeyDown("space"))
+            {
+                AdvanceLevel();
+            }
+        }
         if (victoryAchieved == true)
         {
             if (Input.anyKeyDown)
