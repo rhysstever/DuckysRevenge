@@ -17,4 +17,13 @@ public class PlayerBullet : MonoBehaviour
         transform.Translate(transform.right * speed * Time.deltaTime);
         Destroy(gameObject, 3f);
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Archer")
+        Debug.Log("shot an enemy.");
+
+        collision.gameObject.SetActive(false);
+        Destroy(gameObject);
+    }
 }

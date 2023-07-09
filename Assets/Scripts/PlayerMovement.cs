@@ -94,13 +94,13 @@ public class PlayerMovement : MonoBehaviour
         if (facingRight)
         {
             rb.AddForce(transform.right * horizontalForce);
-            Debug.Log("you are holding the right key.");
+            //Debug.Log("you are holding the right key.");
         }
 
         if (!facingRight)
         {
             rb.AddForce(-transform.right * horizontalForce);
-            Debug.Log("you are holding the left key");
+            //Debug.Log("you are holding the left key");
         }
         //freeze rigidbody on the same frame that we apply force for jump consistency.
         rb.velocity = new Vector2(0, 0);

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
 
     PlayerMovement playerMovement; //reference to the PlayerMovement script on my child object.
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -32,5 +33,12 @@ public class Controller : MonoBehaviour
         {
             playerMovement.PerformHop(); //tell the player sprite to do its jump.
         } 
+
+        if (Input.GetKeyDown("r"))
+        {
+            //reload scene to test music.
+            Scene cScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(cScene.name.ToString());
+        }
     }
 }
