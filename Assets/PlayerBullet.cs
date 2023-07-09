@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     public float speed;
+    public GameObject archerDeathParticles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +24,14 @@ public class PlayerBullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Archer")
         Debug.Log("shot an enemy.");
+        GameObject p = Instantiate(archerDeathParticles);
+        p.transform.position = collision.transform.position;
 
         collision.gameObject.SetActive(false);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        Destroy(gameObject, 1);
+        Destroy(p, 5);
+        
+        
     }
 }
