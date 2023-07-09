@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,12 +27,32 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void AdvanceLevel()
+    {
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+        //var scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+        //// Get the current scene's path
+        //string currentScenePath = SceneManager.GetActiveScene().path;
+        //int currentIndex = scenes.IndexOf(currentScenePath);
+
+        if(currentIndex >= SceneManager.sceneCountInBuildSettings)
+		{
+            // There are no more scenes, the player has won the game
+            Debug.Log("Game won!");
+		} 
+        else
+		{
+            SceneManager.LoadScene(currentIndex + 1);
+		}
     }
 }
