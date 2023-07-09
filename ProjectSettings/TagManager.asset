@@ -8,6 +8,8 @@ TagManager:
   - Projectile
   - Manager
   - Map
+  - Goal
+  - Game Music
   layers:
   - Default
   - TransparentFX
