@@ -12,14 +12,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]    
     float horizontalForce; //the HORIZONTAL force per-jump
 
-    [SerializeField]
-    float downWardForce; //the DOWNWARD force for if the player holds DOWN while falling.
-
     Vector3 SpawnPosition;
 
     bool leftKeyDown; //detects whether the player is holding down A.
     bool rightKeyDown; //detects whether the player is holding down D.
-    bool downKeyDown; //detects whether the player is holding down S.
 
     public GameObject playerDeathParticles;
     public bool isDead = false;
@@ -91,15 +87,6 @@ public class PlayerMovement : MonoBehaviour
         Mathf.Clamp(rb.velocity.x, -10, 10);
         Mathf.Clamp(rb.velocity.y, -10, 50);
 
-        /*
-        //if the player is SMASHING the down key, give them some downward force for game-feel purposes.
-        if (downKeyDown)
-        {
-            rb.AddForce(-transform.up * downWardForce);
-            Debug.Log("you are holding the down key");
-        }
-        */
-
         if (facingRight)
         {
             rb.AddForce(transform.right * horizontalForce);
@@ -122,40 +109,33 @@ public class PlayerMovement : MonoBehaviour
     {
         leftKeyDown = held;
 
-        if (held == true && GetComponent<SpriteRenderer>().flipX == false)
+        if (held && !GetComponent<SpriteRenderer>().flipX)
         {
-            if (facingRight == true)
+            if (facingRight)
             {
                 facingRight = false;
             }
             //flip ducky sprite
             GetComponent<Flippable>().Flip();
             //flip gun sprite if the player has the gun
-            if(GetComponentInChildren<PlayerGun>() != null)
-                GetComponentInChildren<PlayerGun>().gameObject.GetComponent<Flippable>().Flip();
+            GetComponentInChildren<PlayerGun>()?.gameObject.GetComponent<Flippable>().Flip();
         }
     }
 
     public void SetRightKey(bool held)
     {
         rightKeyDown = held;
-        if (held == true && GetComponent<SpriteRenderer>().flipX == true)
+        if (held && GetComponent<SpriteRenderer>().flipX)
         {
-            if (facingRight != true)
+            if (!facingRight)
             {
                 facingRight = true;
             }
             //flip ducky sprite
             GetComponent<Flippable>().FlipBack();
             //flip gun sprite if the player has the gun
-            if(GetComponentInChildren<PlayerGun>() != null)
-                GetComponentInChildren<PlayerGun>().gameObject.GetComponent<Flippable>().FlipBack();
+            GetComponentInChildren<PlayerGun>()?.gameObject.GetComponent<Flippable>().FlipBack();
         }
-    }
-
-    public void SetDownKey(bool held)
-    {
-        downKeyDown = held;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -177,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
     public void Recoil() //runs when player fires gun. pushes you in inverse direction of where you're shooting.
     {
         rb.velocity = Vector2.zero;
-        if (GetComponent<SpriteRenderer>().flipX == true)
+        if (GetComponent<SpriteRenderer>().flipX)
         {
             rb.AddForce(transform.right * 1000);
         }
@@ -187,7 +167,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb.AddForce(transform.up * 3000);
-
     }
 
     public void Die()
@@ -196,8 +175,6 @@ public class PlayerMovement : MonoBehaviour
         GameObject g = Instantiate(playerDeathParticles);
         g.transform.position = transform.position;
         isDead = true;
-        
-        
     }
 
     public void Respawn()
@@ -206,6 +183,4 @@ public class PlayerMovement : MonoBehaviour
         isDead = false;
         transform.position = SpawnPosition;
     }
-
-
 }

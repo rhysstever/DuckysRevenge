@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #region SFX Methods
     public void GunshotSFX()
     {
         audio.PlayOneShot(gunShot, 0.25f);
@@ -103,15 +104,16 @@ public class GameManager : MonoBehaviour
     {
         audio.PlayOneShot(win);
     }
+    #endregion
+
+    public bool IsPlayerAlive() 
+    {
+        return player.transform.GetChild(0).childCount > 0;
+    }
 
     public void AdvanceLevel()
     {
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
-
-        //var scenePath = SceneUtility.GetScenePathByBuildIndex(i);
-        //// Get the current scene's path
-        //string currentScenePath = SceneManager.GetActiveScene().path;
-        //int currentIndex = scenes.IndexOf(currentScenePath);
 
         if(currentIndex >= SceneManager.sceneCountInBuildSettings -1)
 		{
