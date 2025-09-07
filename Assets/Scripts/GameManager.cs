@@ -28,14 +28,16 @@ public class GameManager : MonoBehaviour
 
     public GameObject gameOverUI, victoryUI, helpUI;
 
+    // Set at Start
+    private float bounds;
+
     bool victoryAchieved = false;
 
-    // Start is called before the first frame update
+    public float Bounds { get { return bounds; } }
 
-    
     void Start()
     {
-
+        bounds = 500.0f;
     }
 
     // Update is called once per frame
@@ -55,8 +57,6 @@ public class GameManager : MonoBehaviour
                 AdvanceLevel();
             }
         }
-
-        
     }
 
     public void GunshotSFX()

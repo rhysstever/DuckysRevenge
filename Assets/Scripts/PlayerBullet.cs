@@ -17,7 +17,17 @@ public class PlayerBullet : MonoBehaviour
     void Update()
     {
         transform.Translate(transform.right * speed * Time.deltaTime);
-        Destroy(gameObject, 3f);
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        float bounds = GameManager.instance.Bounds;
+        if(transform.position.x != Mathf.Clamp(transform.position.x, -bounds, bounds)
+            || transform.position.y != Mathf.Clamp(transform.position.y, -bounds, bounds))
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

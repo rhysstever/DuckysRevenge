@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4540709365554625547}
   - component: {fileID: 4540709365554625548}
   - component: {fileID: 4540709365554625549}
+  - component: {fileID: 2006986652613973466}
   m_Layer: 0
   m_Name: particles_archer_death
   m_TagString: Untagged
@@ -4804,3 +4805,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &2006986652613973466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4540709365554625550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a746b359a090945a47e10b09fe267a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSystem: {fileID: 4540709365554625548}

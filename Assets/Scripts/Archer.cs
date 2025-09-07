@@ -30,6 +30,7 @@ public class Archer : MonoBehaviour
     {
         if (!isDead)
         {
+            fireTimer += Time.deltaTime;
             if (fireTimer >= fireRate && GameManager.instance.player != null)
             {
                 GameObject playerBody = GameManager.instance.player.transform.GetChild(0).GetChild(0).gameObject;
@@ -46,28 +47,6 @@ public class Archer : MonoBehaviour
         
     }
 
-	private void FixedUpdate()
-	{
-		fireTimer += Time.deltaTime;
-	}
-
-	//private bool HasLineOfSight(Vector3 targetPos)
-	//{
-	//	Vector3 direction = targetPos - transform.position;
-	//	RaycastHit hit;
-	//	int layerMask = 5;
-	//	layerMask = ~layerMask;
-	//	if(Physics.Raycast(transform.position, direction, out hit, Mathf.Infinity, layerMask))
-	//	{
-	//		return (hit.transform.gameObject.tag == "Player");
-	//	}
-	//	else
-	//	{
-	//		Debug.Log("Raycast missed");
-	//		return false;
-	//	}
-	//}
-
 	private void Fire(GameObject targetObject)
     {
         Vector3 startingPos = new Vector3(
@@ -79,24 +58,15 @@ public class Archer : MonoBehaviour
         // Create the projectile
         GameObject projectile = Instantiate(projectilePrefab, startingPos, Quaternion.identity, GameManager.instance.projectilesParent.transform);
         projectile.GetComponent<Projectile>().source = gameObject;
+        projectile.GetComponent<Projectile>().speed = projectileSpeed;
 
         // Get the target position
         Vector3 targetPos = targetObject.transform.position;
+        targetPos = AddVariance(targetPos, shotVariationAmount);
 
         // Rotate the projectile to face the target
         projectile.transform.LookAt(targetPos);
-
-        // Shoot the projectile away from the archer and towards the target
-        Vector2 direction = new Vector2(
-            targetPos.x - projectile.transform.position.x,
-            targetPos.y - projectile.transform.position.y + 5.0f    // Add 5 to account for gravity
-        );
-
-        // Add variation to the shot's direction
-        direction = AddVariance(direction, shotVariationAmount);
-        direction *= projectileSpeed;
-
-        projectile.GetComponent<Rigidbody2D>().AddForce(direction);
+        projectile.GetComponent<Projectile>().target = targetPos;
 
         GameManager.instance.BowShotSFX();
     }

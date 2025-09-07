@@ -6,20 +6,20 @@ public class Projectile : MonoBehaviour
 {
     // Set on creation
     public GameObject source;
-
-    // Set at Start
-    private float bounds;
-
+    public Vector3 target;
+    public float speed;
     public GameObject impactParticles;
+
     // Start is called before the first frame update
     void Start()
     {
-        bounds = 500.0f;
+        Vector3 direction = target - transform.position;
+        GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+	void FixedUpdate()
     {
+        float bounds = GameManager.instance.Bounds;
         if(transform.position.x != Mathf.Clamp(transform.position.x, -bounds, bounds)
             || transform.position.y != Mathf.Clamp(transform.position.y, -bounds, bounds))
         {
